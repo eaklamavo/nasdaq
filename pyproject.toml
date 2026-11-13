@@ -1,0 +1,35 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "ndx-agent"
+version = "0.1.0"
+description = "Nasdaq-100 CFD buy/sell recommendation agent (MCP server + Claude agent + Streamlit UI)"
+requires-python = ">=3.10"
+dependencies = [
+  "mcp>=1.2,<2",
+  "anthropic",
+  "yfinance",
+  "pandas",
+  "numpy",
+  "streamlit",
+  "pydantic>=2",
+  "httpx",
+  "feedparser",
+  "python-dotenv",
+  "lxml",
+]
+
+[project.optional-dependencies]
+dev = ["pytest", "pytest-asyncio"]
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+pythonpath = ["src"]
+testpaths = ["tests"]
+asyncio_mode = "auto"
+asyncio_default_fixture_loop_scope = "function"
+markers = ["live: needs network access (market data) but no API keys"]
